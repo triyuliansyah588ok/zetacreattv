@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Digital Television Network - ON AIR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* TEMA PREMIUM TERBARU 2026: CYBER BROADCAST */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: #0A0E17; color: #E2E8F0; padding-bottom: 70px; overflow-x: hidden; }
+
+        /* LIVE BROADCAST TICKER ATAS (MENYALA BERKEDIP) */
+        .live-bar {
+            background: linear-gradient(90deg, #FF0055, #A30036);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 20px rgba(255, 0, 85, 0.4);
+        }
+        .live-indicator { display: flex; align-items: center; gap: 8px; text-transform: uppercase; }
+        .live-flash {
+            width: 9px; height: 9px; background-color: #ffffff; border-radius: 50%;
+            animation: pulseSignal 0.8s infinite alternate;
+        }
+        @keyframes pulseSignal { 0% { opacity: 0.2; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1.2); } }
+        .stream-title { font-family: 'Orbitron', sans-serif; font-size: 10.5px; text-shadow: 0 0 5px rgba(255,255,255,0.6); }
+
+        /* HEADER BRANDING */
+        header {
+            background-color: rgba(10, 14, 23, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #1E293B;
+            padding: 15px 20px;
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 100;
+        }
+        .station-branding { display: flex; align-items: center; gap: 12px; }
+        .station-branding img { height: 38px; object-fit: contain; }
+        .station-title { font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: 17px; color: #00F2FE; letter-spacing: 1px; }
+        .nav-icon-btn { background: none; border: none; color: #00F2FE; font-size: 22px; cursor: pointer; }
+
+        /* LIVE PLAYER SCREEN */
+        .main-player-wrapper { padding: 15px; }
+        .digital-screen {
+            position: relative; width: 100%; aspect-ratio: 16/9; background-color: #000;
+            border-radius: 14px; overflow: hidden; border: 1px solid #00F2FE;
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.2);
+        }
+        .screen-inside {
+            width: 100%; height: 100%; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; background: linear-gradient(135deg, #0F172A, #1E293B);
+            text-align: center; padding: 20px;
+        }
+        .trigger-play {
+            width: 55px; height: 55px; background-color: #00F2FE; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center; color: #0A0E17;
+            font-size: 22px; font-weight: bold; margin-bottom: 12px; box-shadow: 0 0 18px #00F2FE;
+            cursor: pointer; transition: transform 0.2s;
+        }
+        .trigger-play:active { transform: scale(0.9); }
+
+        /* DIGITAL INTERACTIVE SCHEDULE */
+        .broadcast-schedule { padding: 15px; }
+        .header-label { font-family: 'Orbitron', sans-serif; font-size: 13px; color: #64748B; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; }
+        .header-label::before { content: ''; display: inline-block; width: 4px; height: 14px; background: #00F2FE; }
+        
+        .schedule-list { display: flex; flex-direction: column; gap: 10px; }
+        .schedule-row {
+            background-color: #111827; border-radius: 10px; padding: 14px;
+            display: flex; justify-content: space-between; align-items: center;
+            border: 1px solid #1E293B; border-left: 4px solid #334155;
+        }
+        .schedule-row.active-now {
+            background: linear-gradient(90deg, #16223F, #0F172A);
+            border-color: #00F2FE; border-left: 4px solid #00F2FE;
+            box-shadow: inset 0 0 15px rgba(0, 242, 254, 0.08);
+        }
+        .program-detail h4 { font-size: 14px; color: #F8FAFC; margin-bottom: 4px; font-weight: 700; }
+        .program-detail p { font-size: 11.5px; color: #94A3B8; line-height: 1.4; }
+        .clock-badge { font-family: 'Orbitron', sans-serif; font-size: 13px; color: #00F2FE; font-weight: bold; }
+        .now-badge { background-color: #FF0055; color: white; font-size: 8px; padding: 3px 6px; border-radius: 4px; font-weight: bold; text-transform: uppercase; margin-bottom: 4px; display: inline-block; letter-spacing: 0.5px; }
+
+        /* PORTAL BERITA TELEVISI */
+        .news-portal { padding: 15px; }
+        .news-stack { display: flex; flex-direction: column; gap: 12px; }
+        .portal-card { display: flex; gap: 15px; background-color: #1E293B; border-radius: 12px; overflow: hidden; border: 1px solid #334155; padding: 10px; }
+        .portal-thumb { width: 90px; height: 75px; background-color: #0F172A; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #475569; font-weight: bold; font-family: 'Orbitron', sans-serif; border: 1px solid #334155; }
+        .portal-info { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .portal-info h5 { font-size: 13px; color: #F1F5F9; line-height: 1.4; font-weight: 600; }
+        .portal-meta { font-size: 10px; color: #64748B; font-weight: bold; }
+
+        /* CONTROLLER FOOTER NAVIGATION */
+        .navigation-dock {
+            position: fixed; bottom: 0; left: 0; width: 100%; height: 60px;
+            background-color: #0A0E17; border-top: 1px solid #1E293B;
+            display: flex; justify-content: space-around; align-items: center; z-index: 200;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+        }
+        .dock-item { display: flex; flex-direction: column; align-items: center; gap: 5px; color: #475569; font-size: 10px; text-decoration: none; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
+        .dock-item.selected { color: #00F2FE; text-shadow: 0 0 8px rgba(0, 242, 254, 0.4); }
+        .dock-icon { font-size: 18px; }
+    </style>
+</head>
+<body>
+
+    <!-- 1. LIVE MONITORING TICKER (BAR ATAS MENYALA) -->
+    <div class="live-bar">
+        <div class="live-indicator">
+            <span class="live-flash"></span> ON AIR STREAMING
+        </div>
+        <div class="stream-title">PROGRAM: MEGA PRIME TIME BROADCAST</div>
+    </div>
+
+    <!-- 2. HEADER LOGO UTAMA -->
+    <header>
+        <div class="station-branding">
+            <!-- Source code gambar otomatis melacak file lokal di repo -->
+            <img src="zetacreatrpg.jpg" alt="STATION LOGO">
+            <div class="station-title">NETWORK SERVICE</div>
+        </div>
+        <button class="nav-icon-btn">⚡</button>
+    </header>
+
+    <!-- 3. MAIN LIVE VIDEO STATION SCREEN -->
+    <section class="main-player-wrapper">
+        <div class="digital-screen">
+            <div class="screen-inside">
+                <div class="trigger-play">▶</div>
+                <span style="font-size: 13px; font-weight: 700; letter-spacing: 1px; color: #00F2FE;">KETUK UNTUK MEMUTAR SIARAN</span>
+                <span style="font-size: 9.5px; color: #64748B; margin-top: 5px; text-transform: uppercase;">Sovereign Digital Ultra HD Stream Feed</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. REALTIME DIGITAL SCHEDULE -->
+    <section class="broadcast-schedule">
+        <div class="header-label">JADWAL SIARAN HARI INI</div>
+        <div class="schedule-list">
+            
+            <div class="schedule-row active-now">
+                <div class="program-detail">
+                    <span class="now-badge">SEDANG TAYANG</span>
+                    <h4>Mega Prime Drama Romansa</h4>
+                    <p>Produksi Premium Sesuai Kurasi Kreatif Nusantara</p>
+                </div>
+                <div class="clock-badge">21:00</div>
+            </div>
+
+            <div class="schedule-row">
+                <div class="program-detail">
+                    <h4>Sinema Malam Spesial</h4>
+                    <p>Sajian Alur Cerita Pilihan Terbaik Generasi Baru</p>
+                </div>
+                <div class="clock-badge">22:30</div>
+            </div>
+
+            <div class="schedule-row">
+                <div class="program-detail">
+                    <h4>Late Night Creative Talk</h4>
+                    <p>Diskusi Tren Industri Kreatif dan Gaya Hidup Kekinian</p>
+                </div>
+                <div class="clock-badge">23:45</div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 5. PORTAL BERITA INTERNAL INTERGASI TELEVISI -->
+    <section class="news-portal">
+        <div class="header-label">BERITA & UPDATE STASIUN</div>
+        <div class="news-stack">
+            
+            <div class="portal-card">
+                <div class="portal-thumb">LIVE INFO</div>
+                <div class="portal-info">
+                    <h5>Sovereign Group Lakukan Ekspansi Jaringan Infrastruktur Digital Terestrial Besar-Besaran</h5>
+                    <span class="portal-meta">UPDATE HARI INI</span>
+                </div>
+            </div>
+
+            <div class="portal-card">
+                <div class="portal-thumb">PRODUKSI</div>
+                <div class="portal-info">
+                    <h5>Studio Produksi Siapkan Ratusan Judul Konten FTV Baru untuk Menghibur Pemirsa</h5>
+                    <span class="portal-meta">INFO KORPORAT</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 6. CONTROLLER FOOTER INTERACTIVE DOCK -->
+    <nav class="navigation-dock">
+        <a href="#" class="dock-item selected">
+            <span class="dock-icon">📺</span>
+            <span>Live Streaming</span>
+        </a>
+        <a href="#" class="dock-item">
+            <span class="dock-icon">📅</span>
+            <span>Jadwal Acara</span>
+        </a>
+        <a href="#" class="dock-item">
+            <span class="dock-icon">📰</span>
+            <span>Berita TV</span>
+        </a>
+    </nav>
+
+</body>
+</html>
