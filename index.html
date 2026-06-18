@@ -32,7 +32,7 @@
 
         /* HEADER BRANDING (SCTV STYLE) */
         header {
-            background-color: #ffffff; /* Menggunakan putih bersih agar serasi dengan dropdown premium */
+            background-color: #ffffff;
             border-bottom: 1px solid #E2E8F0;
             padding: 12px 20px;
             display: flex; justify-content: space-between; align-items: center;
@@ -56,10 +56,10 @@
             display: flex; align-items: center; justify-content: center;
         }
 
-        /* DROPDOWN MENU KOTAK PUTIH MELAYANG (PERSIS SCREENSHOT_20260618_215629_2.JPG) */
+        /* DROPDOWN MENU KOTAK PUTIH MELAYANG */
         .nav-wrapper { position: relative; }
         .thunder-dropdown {
-            display: none; /* Tersembunyi default, muncul via JS */
+            display: none;
             position: absolute;
             top: 40px; right: 0;
             background-color: #ffffff;
@@ -101,7 +101,7 @@
             font-size: 22px; font-weight: bold; margin-bottom: 12px; cursor: pointer;
         }
 
-        /* HALAMAN KONTAK (TAMPILAN BERSIH CERAH SESUAI REKOMENDASI) */
+        /* HALAMAN KONTAK (TAMPILAN BERSIH CERAH) */
         .contact-view {
             display: none;
             width: 100%; background: #FDF4F5; color: #1A2E69;
@@ -131,7 +131,7 @@
             font-weight: bold; border: none; font-size: 14px; cursor: pointer;
         }
 
-        /* CORPORATE DATA INFO */
+        /* CORPORATE DATA INFO UPDATE */
         .corporate-info-section { margin-top: 35px; padding-top: 25px; border-top: 1px dashed rgba(26, 46, 105, 0.2); }
         .corp-block { margin-bottom: 20px; }
         .corp-block h4 { font-size: 16px; font-weight: bold; color: #1A2E69; margin-bottom: 8px; }
@@ -163,13 +163,11 @@
 </head>
 <body>
 
-    <!-- 1. LIVE MONITORING TICKER -->
     <div class="live-bar">
         <div class="live-indicator"><span class="live-flash"></span> STREAMING</div>
         <div class="stream-title">ZETACREAT TV DIGITAL BROADCAST</div>
     </div>
 
-    <!-- 2. STICKER HEADER DENGAN TOMBOL DROPDOWN ASLI (KANAN ATAS) -->
     <header>
         <div class="station-branding" onclick="showLiveVideo()">
             <div class="logo-container">
@@ -181,11 +179,9 @@
         <div class="nav-right-controls">
             <div class="live-text-badge"><span class="live-dot"></span>Live</div>
             <div class="search-icon">🔍</div>
-            <!-- WRAPPER DROPDOWN INTERAKTIF -->
             <div class="nav-wrapper">
                 <button class="nav-icon-btn" onclick="toggleDropdown(event)">☰</button>
                 
-                <!-- DROPDOWN BOX MELAYANG PERSIS SEPERTI DI SCREENSHOT -->
                 <div class="thunder-dropdown" id="thunderMenu">
                     <a href="#" onclick="showLiveVideo()">Program</a>
                     <a href="#" onclick="showLiveVideo()">Jadwal TV</a>
@@ -197,9 +193,7 @@
         </div>
     </header>
 
-    <!-- DYNAMIC CORE DISPLAY PANEL -->
     <div id="dynamicMainContainer">
-        <!-- 1. PANEL UTAMA STREAMING -->
         <section class="main-player-wrapper" id="liveVideoPanel">
             <div class="digital-screen">
                 <div class="screen-inside">
@@ -209,7 +203,6 @@
             </div>
         </section>
 
-        <!-- 2. PANEL HALAMAN KONTAK (KETIKA DIKLIK) -->
         <section class="contact-view" id="contactUsPanel">
             <h2>Kontak Kami</h2>
             <p class="sub-desc">Feel free to contact us and we will get back to you as soon as we can.</p>
@@ -230,17 +223,25 @@
             <div class="corporate-info-section">
                 <div class="corp-block">
                     <h4>Alamat</h4>
-                    <p>ZETACREAT Tower - PT Arka Media Group<br>Jl. Asia Afrika Lot 19, Gelora, Tanah Abang, Jakarta Pusat 10270</p>
+                    <p>
+                        ZETACREAT Tower — PT Arka Media Group<br>
+                        Gedung Keuangan, Lantai 19<br>
+                        Jalan Veteran, Dusun V, Pekan Sialang Buah<br>
+                        Kecamatan Teluk Mengkudu, Kabupaten Serdang Bedagai<br>
+                        Sumatera Utara - 20997
+                    </p>
                 </div>
                 <div class="corp-block">
                     <h4>Bantuan</h4>
-                    <p>Email: support@zetacreat.co.id<br>Phone: +62 21 2793 5555</p>
+                    <p>
+                        Email: Support@zetacreattv.github.co.id<br>
+                        Phone: 08211553241
+                    </p>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- JADWAL SIARAN -->
     <section class="broadcast-schedule">
         <div class="header-label">JADWAL SIARAN HARI INI</div>
         <div class="schedule-list">
@@ -251,13 +252,11 @@
         </div>
     </section>
 
-    <!-- BANNER HUBUNGI KAMI DI TENGAH HALAMAN -->
     <section class="feedback-banner">
         <h3>Anda punya pertanyaan atau masukan terkait program kami? Kami siap melayani kebutuhan Anda</h3>
         <a href="#" onclick="showContactPage(event)" class="feedback-btn">Hubungi Kami</a>
     </section>
 
-    <!-- DIREKTORI LINK BAWAH -->
     <section class="station-directory">
         <div class="directory-links">
             <a onclick="showLiveVideo()">Program</a>
@@ -273,21 +272,17 @@
         <strong>PT ARKA MEDIA GROUP (ZETACREAT TV)</strong>
     </footer>
 
-    <!-- INTERACTIVE JAVASCRIPT CONTROLLER -->
     <script>
-        // Fungsi klik buka tutup menu melayang tepat di bawah tombol pojok kanan atas
         function toggleDropdown(event) {
             event.stopPropagation();
             const menu = document.getElementById('thunderMenu');
             menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
         }
 
-        // Otomatis tutup dropdown jika pengguna mengetuk area lain di layar
         window.onclick = function() {
             document.getElementById('thunderMenu').style.display = 'none';
         }
 
-        // Fungsi menampilkan panel Halaman Kontak Kami
         function showContactPage(event) {
             if(event) event.preventDefault();
             document.getElementById('liveVideoPanel').style.display = 'none';
@@ -295,7 +290,6 @@
             document.getElementById('dynamicMainContainer').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Fungsi mengembalikan ke halaman streaming utama
         function showLiveVideo() {
             document.getElementById('contactUsPanel').style.display = 'none';
             document.getElementById('liveVideoPanel').style.display = 'block';
