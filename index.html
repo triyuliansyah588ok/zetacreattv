@@ -49,7 +49,7 @@
         .live-dot { width: 6px; height: 6px; background-color: #FF0055; border-radius: 50%; }
         .search-icon { font-size: 16px; color: #718096; cursor: pointer; }
 
-        /* TOMBOL MENU UTAMA (Kombinasi Titik Petir / Hamburger Menu) */
+        /* TOMBOL MENU UTAMA (Hamburger Menu) */
         .nav-icon-btn { 
             background: none; border: none; color: #1A2E69; 
             font-size: 22px; cursor: pointer; padding: 5px; 
@@ -84,24 +84,38 @@
         .thunder-dropdown a:last-child { border-bottom: none; }
         .thunder-dropdown a:active { background-color: #EDF2F7; }
 
-        /* LIVE PLAYER SCREEN / MAIN PANEL CONTAINER */
+        /* LIVE BERGERAK VIDEO CONTAINER (SCTV LAYOUT) */
         .main-player-wrapper { padding: 15px; }
         .digital-screen {
             position: relative; width: 100%; aspect-ratio: 16/9; background-color: #000;
             border-radius: 14px; overflow: hidden; border: 1px solid #1A2E69;
         }
-        .screen-inside {
-            width: 100%; height: 100%; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; background: linear-gradient(135deg, #0F172A, #1E293B);
-            text-align: center; padding: 20px;
+        .live-video-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: 1; pointer-events: none;
         }
-        .trigger-play {
-            width: 55px; height: 55px; background-color: #00F2FE; border-radius: 50%;
-            display: flex; justify-content: center; align-items: center; color: #0A0E17;
-            font-size: 22px; font-weight: bold; margin-bottom: 12px; cursor: pointer;
+        .screen-overlay-ui {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 14, 23, 0.4); z-index: 2;
+            display: flex; flex-direction: column; justify-content: space-between; padding: 15px;
+        }
+        .corner-badge {
+            align-self: flex-start; background: rgba(255, 0, 85, 0.85); color: #fff;
+            font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: bold;
+            padding: 4px 10px; border-radius: 4px; letter-spacing: 1px;
+        }
+        .center-play-feedback {
+            align-self: center; text-align: center; color: #ffffff;
+            cursor: pointer; transform: translateY(-10px);
+        }
+        .play-ring {
+            width: 50px; height: 50px; background: rgba(0, 242, 254, 0.9);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 8px auto; font-size: 20px; color: #0A0E17;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
         }
 
-        /* HALAMAN KONTAK (TAMPILAN BERSIH CERAH) */
+        /* HALAMAN KONTAK (BERSIH & TERANG) */
         .contact-view {
             display: none;
             width: 100%; background: #FDF4F5; color: #1A2E69;
@@ -163,11 +177,13 @@
 </head>
 <body>
 
+    <!-- 1. LIVE MONITORING TICKER -->
     <div class="live-bar">
         <div class="live-indicator"><span class="live-flash"></span> STREAMING</div>
         <div class="stream-title">ZETACREAT TV DIGITAL BROADCAST</div>
     </div>
 
+    <!-- 2. STICKER HEADER DENGAN TOMBOL DROPDOWN ASLI (KANAN ATAS) -->
     <header>
         <div class="station-branding" onclick="showLiveVideo()">
             <div class="logo-container">
@@ -179,9 +195,11 @@
         <div class="nav-right-controls">
             <div class="live-text-badge"><span class="live-dot"></span>Live</div>
             <div class="search-icon">🔍</div>
+            <!-- WRAPPER DROPDOWN INTERAKTIF -->
             <div class="nav-wrapper">
                 <button class="nav-icon-btn" onclick="toggleDropdown(event)">☰</button>
                 
+                <!-- DROPDOWN BOX MELAYANG PUTIH -->
                 <div class="thunder-dropdown" id="thunderMenu">
                     <a href="#" onclick="showLiveVideo()">Program</a>
                     <a href="#" onclick="showLiveVideo()">Jadwal TV</a>
@@ -193,16 +211,28 @@
         </div>
     </header>
 
+    <!-- DYNAMIC CORE DISPLAY PANEL -->
     <div id="dynamicMainContainer">
+        
+        <!-- 1. PANEL UTAMA STREAMING BERGERAK OTOMATIS (LIVE VIDEO BACKGROUND LOOP) -->
         <section class="main-player-wrapper" id="liveVideoPanel">
             <div class="digital-screen">
-                <div class="screen-inside">
-                    <div class="trigger-play">▶</div>
-                    <span style="font-size: 13px; font-weight: 700; color: #00F2FE;">KETUK UNTUK MEMUTAR SIARAN</span>
+                <!-- Video siaran langsung abstrak bergerak otomatis tanpa henti (Autoplay, Muted, Loop) -->
+                <video class="live-video-bg" autoplay muted loop playsinline>
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-32155-large.mp4" type="video/mp4">
+                </video>
+                <div class="screen-overlay-ui">
+                    <div class="corner-badge">LIVE 1080P</div>
+                    <div class="center-play-feedback">
+                        <div class="play-ring">▶</div>
+                        <span style="font-size: 11px; font-weight: 700; color: #00F2FE; letter-spacing: 0.5px;">KETUK UNTUK AUDIO PENUH</span>
+                    </div>
+                    <div></div>
                 </div>
             </div>
         </section>
 
+        <!-- 2. PANEL HALAMAN KONTAK (MUNCUL JIKA DIKLIK) -->
         <section class="contact-view" id="contactUsPanel">
             <h2>Kontak Kami</h2>
             <p class="sub-desc">Feel free to contact us and we will get back to you as soon as we can.</p>
@@ -220,6 +250,7 @@
                 <button type="submit" class="submit-contact-btn">Kirim</button>
             </form>
 
+            <!-- DATA ALAMAT & BANTUAN AKTIF -->
             <div class="corporate-info-section">
                 <div class="corp-block">
                     <h4>Alamat</h4>
@@ -242,6 +273,7 @@
         </section>
     </div>
 
+    <!-- JADWAL SIARAN -->
     <section class="broadcast-schedule">
         <div class="header-label">JADWAL SIARAN HARI INI</div>
         <div class="schedule-list">
@@ -252,11 +284,13 @@
         </div>
     </section>
 
+    <!-- BANNER HUBUNGI KAMI DI TENGAH HALAMAN -->
     <section class="feedback-banner">
         <h3>Anda punya pertanyaan atau masukan terkait program kami? Kami siap melayani kebutuhan Anda</h3>
         <a href="#" onclick="showContactPage(event)" class="feedback-btn">Hubungi Kami</a>
     </section>
 
+    <!-- DIREKTORI LINK BAWAH (BERSIH DARI SOSIAL MEDIA) -->
     <section class="station-directory">
         <div class="directory-links">
             <a onclick="showLiveVideo()">Program</a>
@@ -272,6 +306,7 @@
         <strong>PT ARKA MEDIA GROUP (ZETACREAT TV)</strong>
     </footer>
 
+    <!-- INTERACTIVE JAVASCRIPT CONTROLLER -->
     <script>
         function toggleDropdown(event) {
             event.stopPropagation();
