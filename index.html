@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sovereign Digital Television Network - ON AIR</title>
+    <title>ZETACREAT TV - ON AIR</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         /* TEMA PREMIUM TERBARU 2026: CYBER BROADCAST */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: #0A0E17; color: #E2E8F0; padding-bottom: 70px; overflow-x: hidden; }
+        body { background-color: #0A0E17; color: #E2E8F0; padding-bottom: 120px; overflow-x: hidden; }
 
         /* LIVE BROADCAST TICKER ATAS (MENYALA BERKEDIP) */
         .live-bar {
@@ -41,9 +41,26 @@
             position: sticky; top: 0; z-index: 100;
         }
         .station-branding { display: flex; align-items: center; gap: 12px; }
-        .station-branding img { height: 38px; object-fit: contain; }
-        .station-title { font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: 17px; color: #00F2FE; letter-spacing: 1px; }
-        .nav-icon-btn { background: none; border: none; color: #00F2FE; font-size: 22px; cursor: pointer; }
+        
+        /* CONTAINER LOGO ANTI-PECAH/HILANG */
+        .logo-container {
+            position: relative;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-container img {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .station-title { font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: 17px; color: #00F2FE; letter-spacing: 1px; line-height: 1.2; }
+        .nav-icon-btn { background: none; border: none; color: #FFD700; font-size: 22px; cursor: pointer; text-shadow: 0 0 10px #FFD700; }
 
         /* LIVE PLAYER SCREEN */
         .main-player-wrapper { padding: 15px; }
@@ -61,9 +78,8 @@
             width: 55px; height: 55px; background-color: #00F2FE; border-radius: 50%;
             display: flex; justify-content: center; align-items: center; color: #0A0E17;
             font-size: 22px; font-weight: bold; margin-bottom: 12px; box-shadow: 0 0 18px #00F2FE;
-            cursor: pointer; transition: transform 0.2s;
+            cursor: pointer;
         }
-        .trigger-play:active { transform: scale(0.9); }
 
         /* DIGITAL INTERACTIVE SCHEDULE */
         .broadcast-schedule { padding: 15px; }
@@ -95,6 +111,19 @@
         .portal-info h5 { font-size: 13px; color: #F1F5F9; line-height: 1.4; font-weight: 600; }
         .portal-meta { font-size: 10px; color: #64748B; font-weight: bold; }
 
+        /* FOOTER PROTEKSI HAK CIPTA */
+        footer {
+            background-color: #070A10;
+            color: #475569;
+            padding: 25px 20px;
+            text-align: center;
+            font-size: 11px;
+            border-top: 1px solid #1E293B;
+            line-height: 1.6;
+            letter-spacing: 0.5px;
+        }
+        footer strong { color: #94A3B8; }
+
         /* CONTROLLER FOOTER NAVIGATION */
         .navigation-dock {
             position: fixed; bottom: 0; left: 0; width: 100%; height: 60px;
@@ -109,7 +138,7 @@
 </head>
 <body>
 
-    <!-- 1. LIVE MONITORING TICKER (BAR ATAS MENYALA) -->
+    <!-- 1. LIVE MONITORING TICKER -->
     <div class="live-bar">
         <div class="live-indicator">
             <span class="live-flash"></span> ON AIR STREAMING
@@ -117,12 +146,14 @@
         <div class="stream-title">PROGRAM: MEGA PRIME TIME BROADCAST</div>
     </div>
 
-    <!-- 2. HEADER LOGO UTAMA -->
+    <!-- 2. HEADER BRANDING (DENGAN SISTEM LOGO MULTI-SISTEM AMAN) -->
     <header>
         <div class="station-branding">
-            <!-- Source code gambar otomatis melacak file lokal di repo -->
-            <img src="zetacreatrpg.jpg" alt="STATION LOGO">
-            <div class="station-title">NETWORK SERVICE</div>
+            <div class="logo-container">
+                <!-- Sistem Otomatis: Melacak PNG dahulu, jika error langsung ganti ke JPG lokal -->
+                <img src="1781606509965.png" id="mainLogo" onerror="this.onerror=null; this.src='zetacreatrpg.jpg';">
+            </div>
+            <div class="station-title">ZETACREAT TV</div>
         </div>
         <button class="nav-icon-btn">⚡</button>
     </header>
@@ -133,7 +164,7 @@
             <div class="screen-inside">
                 <div class="trigger-play">▶</div>
                 <span style="font-size: 13px; font-weight: 700; letter-spacing: 1px; color: #00F2FE;">KETUK UNTUK MEMUTAR SIARAN</span>
-                <span style="font-size: 9.5px; color: #64748B; margin-top: 5px; text-transform: uppercase;">Sovereign Digital Ultra HD Stream Feed</span>
+                <span style="font-size: 9.5px; color: #64748B; margin-top: 5px; text-transform: uppercase;">Zetacreat Digital Ultra HD Stream Feed</span>
             </div>
         </div>
     </section>
@@ -146,24 +177,24 @@
             <div class="schedule-row active-now">
                 <div class="program-detail">
                     <span class="now-badge">SEDANG TAYANG</span>
-                    <h4>Mega Prime Drama Romansa</h4>
-                    <p>Produksi Premium Sesuai Kurasi Kreatif Nusantara</p>
+                    <h4>Indie Wave Music Stage</h4>
+                    <p>Panggung Kreatif & Kompetisi Band Independen Nasional</p>
                 </div>
                 <div class="clock-badge">21:00</div>
             </div>
 
             <div class="schedule-row">
                 <div class="program-detail">
-                    <h4>Sinema Malam Spesial</h4>
-                    <p>Sajian Alur Cerita Pilihan Terbaik Generasi Baru</p>
+                    <h4>Sinema Kekinian: Batas Kreatif</h4>
+                    <p>Kurasi Sinematik Indie Karya Kreator Muda Nusantara</p>
                 </div>
                 <div class="clock-badge">22:30</div>
             </div>
 
             <div class="schedule-row">
                 <div class="program-detail">
-                    <h4>Late Night Creative Talk</h4>
-                    <p>Diskusi Tren Industri Kreatif dan Gaya Hidup Kekinian</p>
+                    <h4>Z-Generation Culture Vibe</h4>
+                    <p>Eksplorasi Tren Industri Kreatif dan Gaya Hidup Kekinian</p>
                 </div>
                 <div class="clock-badge">23:45</div>
             </div>
@@ -177,9 +208,9 @@
         <div class="news-stack">
             
             <div class="portal-card">
-                <div class="portal-thumb">LIVE INFO</div>
+                <div class="portal-thumb">Z-NEWS</div>
                 <div class="portal-info">
-                    <h5>Sovereign Group Lakukan Ekspansi Jaringan Infrastruktur Digital Terestrial Besar-Besaran</h5>
+                    <h5>Arka Media Group Siapkan Panggung Akbar Final Audisi Kreatif Bulan Depan</h5>
                     <span class="portal-meta">UPDATE HARI INI</span>
                 </div>
             </div>
@@ -187,7 +218,7 @@
             <div class="portal-card">
                 <div class="portal-thumb">PRODUKSI</div>
                 <div class="portal-info">
-                    <h5>Studio Produksi Siapkan Ratusan Judul Konten FTV Baru untuk Menghibur Pemirsa</h5>
+                    <h5>Daftar Band Independen Terpilih yang Lolos Masuk Line-Up Utama Pekan Ini</h5>
                     <span class="portal-meta">INFO KORPORAT</span>
                 </div>
             </div>
@@ -195,7 +226,14 @@
         </div>
     </section>
 
-    <!-- 6. CONTROLLER FOOTER INTERACTIVE DOCK -->
+    <!-- 6. FOOTER PROTEKSI LEGALITAS KORPORAT (DILINDUNGI) -->
+    <footer>
+        Hak Cipta Dilindungi Undang-Undang &copy; 2026<br>
+        <strong>PT ARKA MEDIA GROUP (ZETACREAT TV)</strong><br>
+        Sovereign Konglomerat Group Corporation. All Rights Reserved.
+    </footer>
+
+    <!-- 7. CONTROLLER FOOTER INTERACTIVE DOCK -->
     <nav class="navigation-dock">
         <a href="#" class="dock-item selected">
             <span class="dock-icon">📺</span>
