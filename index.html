@@ -6,11 +6,10 @@
     <title>ZETACREAT TV - ON AIR</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* TEMA PREMIUM: CYBER BROADCAST */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background-color: #0A0E17; color: #E2E8F0; padding-bottom: 80px; overflow-x: hidden; }
 
-        /* LIVE BROADCAST TICKER */
+        /* LIVE BAR: INDIKATOR BERKEDIP-KEDIP AKTIF */
         .live-bar {
             background: linear-gradient(90deg, #FF0055, #A30036);
             color: #ffffff;
@@ -23,14 +22,19 @@
             letter-spacing: 1px;
         }
         .live-indicator { display: flex; align-items: center; gap: 8px; }
+        
+        /* Efek Berkedip-kedip Cepat */
         .live-flash {
             width: 9px; height: 9px; background-color: #ffffff; border-radius: 50%;
-            animation: pulseSignal 0.8s infinite alternate;
+            animation: blinkFast 0.6s infinite alternate;
         }
-        @keyframes pulseSignal { 0% { opacity: 0.2; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1.2); } }
+        @keyframes blinkFast {
+            0% { opacity: 0.2; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
         .stream-title { font-family: 'Orbitron', sans-serif; font-size: 10.5px; }
 
-        /* HEADER BRANDING (SCTV STYLE) */
+        /* HEADER BRANDING */
         header {
             background-color: #ffffff;
             border-bottom: 1px solid #E2E8F0;
@@ -43,293 +47,135 @@
         .logo-container img { width: 100%; height: 100%; object-fit: contain; }
         .station-title { font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: 16px; color: #1A2E69; letter-spacing: 0.5px; }
         
-        /* Nav Right Controls */
         .nav-right-controls { display: flex; align-items: center; gap: 18px; }
         .live-text-badge { color: #FF0055; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 4px; }
-        .live-dot { width: 6px; height: 6px; background-color: #FF0055; border-radius: 50%; }
-        .search-icon { font-size: 16px; color: #718096; cursor: pointer; }
+        .live-dot { width: 6px; height: 6px; background-color: #FF0055; border-radius: 50%; animation: blinkFast 0.6s infinite alternate; }
+        .nav-icon-btn { background: none; border: none; color: #1A2E69; font-size: 22px; cursor: pointer; }
 
-        /* TOMBOL MENU UTAMA (Hamburger Menu) */
-        .nav-icon-btn { 
-            background: none; border: none; color: #1A2E69; 
-            font-size: 22px; cursor: pointer; padding: 5px; 
-            display: flex; align-items: center; justify-content: center;
-        }
-
-        /* DROPDOWN MENU KOTAK PUTIH MELAYANG */
+        /* DROPDOWN MENU */
         .nav-wrapper { position: relative; }
         .thunder-dropdown {
-            display: none;
-            position: absolute;
-            top: 40px; right: 0;
-            background-color: #ffffff;
-            min-width: 190px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            border: 1px solid rgba(0,0,0,0.06);
-            overflow: hidden;
-            z-index: 9999;
+            display: none; position: absolute; top: 40px; right: 0;
+            background-color: #ffffff; min-width: 190px; border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15); z-index: 9999;
         }
-        .thunder-dropdown a {
-            display: block;
-            padding: 12px 20px;
-            color: #4A5568;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 700;
-            border-bottom: 1px solid #F7FAFC;
-            text-align: left;
-            transition: background 0.2s;
-        }
-        .thunder-dropdown a:last-child { border-bottom: none; }
-        .thunder-dropdown a:active { background-color: #EDF2F7; }
+        .thunder-dropdown a { display: block; padding: 12px 20px; color: #4A5568; text-decoration: none; font-size: 14px; font-weight: 700; border-bottom: 1px solid #F7FAFC; }
 
-        /* LIVE BERGERAK VIDEO CONTAINER (SCTV LAYOUT) */
+        /* VIDEO PLAYER */
         .main-player-wrapper { padding: 15px; }
-        .digital-screen {
-            position: relative; width: 100%; aspect-ratio: 16/9; background-color: #000;
-            border-radius: 14px; overflow: hidden; border: 1px solid #1A2E69;
-        }
-        .live-video-bg {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; z-index: 1; pointer-events: none;
-        }
-        .screen-overlay-ui {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(10, 14, 23, 0.4); z-index: 2;
-            display: flex; flex-direction: column; justify-content: space-between; padding: 15px;
-        }
-        .corner-badge {
-            align-self: flex-start; background: rgba(255, 0, 85, 0.85); color: #fff;
-            font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: bold;
-            padding: 4px 10px; border-radius: 4px; letter-spacing: 1px;
-        }
-        .center-play-feedback {
-            align-self: center; text-align: center; color: #ffffff;
-            cursor: pointer; transform: translateY(-10px);
-        }
-        .play-ring {
-            width: 50px; height: 50px; background: rgba(0, 242, 254, 0.9);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 8px auto; font-size: 20px; color: #0A0E17;
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
-        }
+        .digital-screen { position: relative; width: 100%; aspect-ratio: 16/9; background-color: #000; border-radius: 14px; overflow: hidden; border: 1px solid #1A2E69; }
+        .live-video-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        .screen-overlay-ui { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 14, 23, 0.3); display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .corner-badge { position: absolute; top: 15px; left: 15px; background: rgba(255, 0, 85, 0.9); color: #fff; font-size: 10px; font-weight: bold; padding: 4px 10px; border-radius: 4px; }
 
-        /* HALAMAN KONTAK (BERSIH & TERANG) */
-        .contact-view {
-            display: none;
-            width: 100%; background: #FDF4F5; color: #1A2E69;
-            padding: 30px 20px; text-align: left;
-        }
-        .contact-view h2 { font-size: 28px; font-weight: 800; color: #1A2E69; margin-bottom: 10px; }
-        .contact-view .sub-desc { font-size: 13px; color: #4A5568; margin-bottom: 25px; }
-        
-        .form-group { margin-bottom: 16px; }
-        .form-input {
-            width: 100%; padding: 14px 20px; border-radius: 30px; 
-            border: 1px solid rgba(0,0,0,0.08); background-color: #ffffff;
-            font-size: 14px; color: #1A2E69; outline: none;
-        }
-        
-        /* Captcha & Submit */
-        .captcha-box {
-            background: #ffffff; border: 1px solid #D2D6DC; padding: 12px;
-            border-radius: 6px; display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 20px; max-width: 280px;
-        }
-        .captcha-left { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #000000; }
-        .captcha-right { text-align: center; font-size: 9px; color: #718096; }
-        .submit-contact-btn {
-            display: block; width: 140px; margin: 0 auto; background-color: #4F73C2;
-            color: #ffffff; text-align: center; padding: 12px 0; border-radius: 25px;
-            font-weight: bold; border: none; font-size: 14px; cursor: pointer;
-        }
+        /* KONTAK & FORM */
+        .contact-view { display: none; width: 100%; background: #FDF4F5; color: #1A2E69; padding: 30px 20px; }
+        .form-input { width: 100%; padding: 14px; margin-bottom: 10px; border-radius: 30px; border: 1px solid #ccc; }
+        .submit-contact-btn { display: block; width: 140px; margin: 20px auto; background-color: #4F73C2; color: #fff; padding: 12px; border-radius: 25px; border: none; font-weight: bold; cursor: pointer; }
+        .corporate-info-section { margin-top: 30px; border-top: 1px dashed #ccc; padding-top: 20px; }
 
-        /* CORPORATE DATA INFO UPDATE */
-        .corporate-info-section { margin-top: 35px; padding-top: 25px; border-top: 1px dashed rgba(26, 46, 105, 0.2); }
-        .corp-block { margin-bottom: 20px; }
-        .corp-block h4 { font-size: 16px; font-weight: bold; color: #1A2E69; margin-bottom: 8px; }
-        .corp-block p { font-size: 13px; color: #4A5568; line-height: 1.6; }
+        /* SOSIAL MEDIA BLOK */
+        .social-media-box { margin-top: 20px; display: flex; gap: 12px; }
+        .social-item { display: inline-block; padding: 8px 16px; background: #ffffff; border: 1px solid rgba(26, 46, 105, 0.2); border-radius: 20px; color: #1A2E69; text-decoration: none; font-size: 12px; font-weight: bold; }
 
-        /* JADWAL SIARAN */
-        .broadcast-schedule { padding: 15px; }
-        .header-label { font-family: 'Orbitron', sans-serif; font-size: 13px; color: #64748B; text-transform: uppercase; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
-        .header-label::before { content: ''; display: inline-block; width: 4px; height: 14px; background: #00F2FE; }
-        .schedule-list { display: flex; flex-direction: column; gap: 10px; }
-        .schedule-row { background-color: #111827; border-radius: 10px; padding: 14px; display: flex; justify-content: space-between; align-items: center; }
-        .schedule-row.active-now { border-left: 4px solid #00F2FE; background-color: #16223F; }
-        .program-detail h4 { font-size: 14px; color: #F8FAFC; }
-        .program-detail p { font-size: 11.5px; color: #94A3B8; }
-        .clock-badge { font-family: 'Orbitron', sans-serif; font-size: 13px; color: #00F2FE; font-weight: bold; }
-
-        /* MASUKAN BANNER TIMUR */
-        .feedback-banner { background-color: #1A2E69; text-align: center; padding: 35px 24px; }
-        .feedback-banner h3 { font-size: 15px; color: #ffffff; font-weight: 600; margin-bottom: 22px; line-height: 1.6; }
-        .feedback-btn { display: inline-block; background-color: #ffffff; color: #1A2E69; text-decoration: none; font-weight: bold; font-size: 13.5px; padding: 10px 32px; border-radius: 25px; }
-
-        /* FOOTER DIRECTORY */
-        .station-directory { background-color: #0A0E17; text-align: center; padding: 35px 20px; }
-        .directory-links { display: flex; flex-direction: column; gap: 16px; font-size: 14.5px; font-weight: bold; color: #94A3B8; }
+        /* FOOTER & DIRECTORY */
+        .station-directory { background-color: #0A0E17; text-align: center; padding: 35px 20px; border-top: 1px solid #1E293B; }
+        .directory-links { display: flex; flex-direction: column; gap: 16px; font-size: 14.5px; font-weight: bold; color: #94A3B8; margin-bottom: 25px; }
         .directory-links a { color: #94A3B8; text-decoration: none; cursor: pointer; }
+        
+        .footer-socials { display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; }
+        .footer-socials a { color: #94A3B8; text-decoration: none; font-size: 13px; background: #111827; padding: 8px 15px; border-radius: 6px; }
 
-        footer { background-color: #070A10; color: #475569; padding: 25px 20px; text-align: center; font-size: 11px; }
+        footer { background-color: #070A10; color: #475569; padding: 25px; text-align: center; font-size: 11px; }
     </style>
 </head>
 <body>
 
-    <!-- 1. LIVE MONITORING TICKER -->
+    <!-- LIVE MONITORING DENGAN FLASH BERKEDIP -->
     <div class="live-bar">
         <div class="live-indicator"><span class="live-flash"></span> STREAMING</div>
         <div class="stream-title">ZETACREAT TV DIGITAL BROADCAST</div>
     </div>
 
-    <!-- 2. STICKER HEADER DENGAN TOMBOL DROPDOWN ASLI (KANAN ATAS) -->
     <header>
         <div class="station-branding" onclick="showLiveVideo()">
-            <div class="logo-container">
-                <img src="1781606509965.png" onerror="this.onerror=null; this.src='zetacreatrpg.jpg';">
-            </div>
+            <div class="logo-container"><img src="1781606509965.png"></div>
             <div class="station-title">ZETACREAT TV</div>
         </div>
-        
         <div class="nav-right-controls">
             <div class="live-text-badge"><span class="live-dot"></span>Live</div>
-            <div class="search-icon">🔍</div>
-            <!-- WRAPPER DROPDOWN INTERAKTIF -->
             <div class="nav-wrapper">
                 <button class="nav-icon-btn" onclick="toggleDropdown(event)">☰</button>
-                
-                <!-- DROPDOWN BOX MELAYANG PUTIH -->
                 <div class="thunder-dropdown" id="thunderMenu">
                     <a href="#" onclick="showLiveVideo()">Program</a>
-                    <a href="#" onclick="showLiveVideo()">Jadwal TV</a>
-                    <a href="#" onclick="showLiveVideo()">Karir</a>
                     <a href="#" onclick="showContactPage(event)">Kontak Kami</a>
-                    <a href="#" onclick="showLiveVideo()">Layanan Penyiaran</a>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- DYNAMIC CORE DISPLAY PANEL -->
     <div id="dynamicMainContainer">
-        
-        <!-- 1. PANEL UTAMA STREAMING BERGERAK OTOMATIS (LIVE VIDEO BACKGROUND LOOP) -->
+        <!-- PLAYER STREAMING UTAMA BERGERAK -->
         <section class="main-player-wrapper" id="liveVideoPanel">
             <div class="digital-screen">
-                <!-- Video siaran langsung abstrak bergerak otomatis tanpa henti (Autoplay, Muted, Loop) -->
                 <video class="live-video-bg" autoplay muted loop playsinline>
                     <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-32155-large.mp4" type="video/mp4">
                 </video>
                 <div class="screen-overlay-ui">
                     <div class="corner-badge">LIVE 1080P</div>
-                    <div class="center-play-feedback">
-                        <div class="play-ring">▶</div>
-                        <span style="font-size: 11px; font-weight: 700; color: #00F2FE; letter-spacing: 0.5px;">KETUK UNTUK AUDIO PENUH</span>
-                    </div>
-                    <div></div>
                 </div>
             </div>
         </section>
 
-        <!-- 2. PANEL HALAMAN KONTAK (MUNCUL JIKA DIKLIK) -->
+        <!-- HALAMAN KONTAK -->
         <section class="contact-view" id="contactUsPanel">
             <h2>Kontak Kami</h2>
-            <p class="sub-desc">Feel free to contact us and we will get back to you as soon as we can.</p>
-            
-            <form onsubmit="event.preventDefault(); alert('Pesan Anda berhasil dikirim ke ZETACREAT TV!');">
-                <div class="form-group"><input type="text" class="form-input" placeholder="Nama*" required></div>
-                <div class="form-group"><input type="email" class="form-input" placeholder="Email*" required></div>
-                <div class="form-group"><input type="text" class="form-input" placeholder="Subject*" required></div>
-                <div class="form-group"><input type="text" class="form-input" placeholder="Pesan*" required></div>
-
-                <div class="captcha-box">
-                    <div class="captcha-left"><input type="checkbox" required> <span>Saya bukan robot</span></div>
-                    <div class="captcha-right">reCAPTCHA</div>
-                </div>
+            <form onsubmit="event.preventDefault(); alert('Terkirim!');">
+                <input type="text" class="form-input" placeholder="Nama" required>
+                <input type="email" class="form-input" placeholder="Email" required>
+                <input type="text" class="form-input" placeholder="Pesan" required>
                 <button type="submit" class="submit-contact-btn">Kirim</button>
             </form>
-
-            <!-- DATA ALAMAT & BANTUAN AKTIF -->
+            
             <div class="corporate-info-section">
-                <div class="corp-block">
-                    <h4>Alamat</h4>
-                    <p>
-                        ZETACREAT Tower — PT Arka Media Group<br>
-                        Gedung Keuangan, Lantai 19<br>
-                        Jalan Veteran, Dusun V, Pekan Sialang Buah<br>
-                        Kecamatan Teluk Mengkudu, Kabupaten Serdang Bedagai<br>
-                        Sumatera Utara - 20997
-                    </p>
-                </div>
-                <div class="corp-block">
-                    <h4>Bantuan</h4>
-                    <p>
-                        Email: Support@zetacreattv.github.co.id<br>
-                        Phone: 08211553241
-                    </p>
+                <h4>Alamat Resmi</h4>
+                <p>Jalan Veteran, Dusun V, Pekan Sialang Buah<br>Teluk Mengkudu, Serdang Bedagai<br>Sumatera Utara - 20997</p>
+                <br>
+                <h4>Bantuan Penonton</h4>
+                <p>Email: Support@zetacreattv.github.co.id<br>Phone: 08211553241</p>
+                <br>
+                <h4>Sosial Media Resmi</h4>
+                <div class="social-media-box">
+                    <a href="#" class="social-item">Instagram</a>
+                    <a href="#" class="social-item">YouTube</a>
+                    <a href="#" class="social-item">Facebook</a>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- JADWAL SIARAN -->
-    <section class="broadcast-schedule">
-        <div class="header-label">JADWAL SIARAN HARI INI</div>
-        <div class="schedule-list">
-            <div class="schedule-row active-now">
-                <div class="program-detail"><h4>Indie Wave Music Stage</h4><p>Panggung Musik Kreatif</p></div>
-                <div class="clock-badge">21:00</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- BANNER HUBUNGI KAMI DI TENGAH HALAMAN -->
-    <section class="feedback-banner">
-        <h3>Anda punya pertanyaan atau masukan terkait program kami? Kami siap melayani kebutuhan Anda</h3>
-        <a href="#" onclick="showContactPage(event)" class="feedback-btn">Hubungi Kami</a>
-    </section>
-
-    <!-- DIREKTORI LINK BAWAH (BERSIH DARI SOSIAL MEDIA) -->
+    <!-- DIREKTORI LINK & SOSIAL MEDIA BAWAH -->
     <section class="station-directory">
         <div class="directory-links">
             <a onclick="showLiveVideo()">Program</a>
-            <a onclick="showLiveVideo()">Jadwal TV</a>
             <a onclick="showContactPage(event)">Kontak Kami</a>
-            <a onclick="showLiveVideo()">Karir</a>
-            <a onclick="showLiveVideo()">Layanan Multipleksing</a>
+        </div>
+        
+        <div class="footer-socials">
+            <a href="#">Instagram</a>
+            <a href="#">YouTube</a>
+            <a href="#">Facebook</a>
+            <a href="#">Twitter</a>
         </div>
     </section>
 
-    <footer>
-        Hak Cipta Dilindungi Undang-Undang &copy; 2026<br>
-        <strong>PT ARKA MEDIA GROUP (ZETACREAT TV)</strong>
-    </footer>
+    <footer>Hak Cipta Dilindungi Undang-Undang &copy; 2026<br>PT ARKA MEDIA GROUP (ZETACREAT TV)</footer>
 
-    <!-- INTERACTIVE JAVASCRIPT CONTROLLER -->
     <script>
-        function toggleDropdown(event) {
-            event.stopPropagation();
-            const menu = document.getElementById('thunderMenu');
-            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
-        }
-
-        window.onclick = function() {
-            document.getElementById('thunderMenu').style.display = 'none';
-        }
-
-        function showContactPage(event) {
-            if(event) event.preventDefault();
-            document.getElementById('liveVideoPanel').style.display = 'none';
-            document.getElementById('contactUsPanel').style.display = 'block';
-            document.getElementById('dynamicMainContainer').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function showLiveVideo() {
-            document.getElementById('contactUsPanel').style.display = 'none';
-            document.getElementById('liveVideoPanel').style.display = 'block';
-            document.getElementById('dynamicMainContainer').scrollIntoView({ behavior: 'smooth' });
-        }
+        function toggleDropdown(event) { event.stopPropagation(); document.getElementById('thunderMenu').style.display = (document.getElementById('thunderMenu').style.display === 'block') ? 'none' : 'block'; }
+        window.onclick = function() { document.getElementById('thunderMenu').style.display = 'none'; }
+        function showContactPage(event) { if(event) event.preventDefault(); document.getElementById('liveVideoPanel').style.display = 'none'; document.getElementById('contactUsPanel').style.display = 'block'; }
+        function showLiveVideo() { document.getElementById('contactUsPanel').style.display = 'none'; document.getElementById('liveVideoPanel').style.display = 'block'; }
     </script>
 </body>
 </html>
