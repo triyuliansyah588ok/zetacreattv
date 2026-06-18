@@ -6,11 +6,11 @@
     <title>ZETACREAT TV - ON AIR</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* TEMA PREMIUM TERBARU 2026: CYBER BROADCAST */
+        /* TEMA PREMIUM: CYBER BROADCAST */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: #0A0E17; color: #E2E8F0; padding-bottom: 120px; overflow-x: hidden; }
+        body { background-color: #0A0E17; color: #E2E8F0; padding-bottom: 80px; overflow-x: hidden; }
 
-        /* LIVE BROADCAST TICKER ATAS */
+        /* LIVE BROADCAST TICKER */
         .live-bar {
             background: linear-gradient(90deg, #FF0055, #A30036);
             color: #ffffff;
@@ -21,78 +21,74 @@
             align-items: center;
             justify-content: space-between;
             letter-spacing: 1px;
-            box-shadow: 0 4px 20px rgba(255, 0, 85, 0.4);
         }
-        .live-indicator { display: flex; align-items: center; gap: 8px; text-transform: uppercase; }
+        .live-indicator { display: flex; align-items: center; gap: 8px; }
         .live-flash {
             width: 9px; height: 9px; background-color: #ffffff; border-radius: 50%;
             animation: pulseSignal 0.8s infinite alternate;
         }
         @keyframes pulseSignal { 0% { opacity: 0.2; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1.2); } }
-        .stream-title { font-family: 'Orbitron', sans-serif; font-size: 10.5px; text-shadow: 0 0 5px rgba(255,255,255,0.6); }
+        .stream-title { font-family: 'Orbitron', sans-serif; font-size: 10.5px; }
 
-        /* HEADER BRANDING & DROPDOWN NAV */
+        /* HEADER BRANDING (SCTV STYLE) */
         header {
-            background-color: rgba(10, 14, 23, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid #1E293B;
-            padding: 15px 20px;
+            background-color: #ffffff; /* Menggunakan putih bersih agar serasi dengan dropdown premium */
+            border-bottom: 1px solid #E2E8F0;
+            padding: 12px 20px;
             display: flex; justify-content: space-between; align-items: center;
-            position: sticky; top: 0; z-index: 100;
+            position: sticky; top: 0; z-index: 1000;
         }
         .station-branding { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .logo-container { width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; }
+        .logo-container img { width: 100%; height: 100%; object-fit: contain; }
+        .station-title { font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: 16px; color: #1A2E69; letter-spacing: 0.5px; }
         
-        .logo-container {
-            position: relative;
-            width: 38px;
-            height: 38px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .logo-container img {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        
-        .station-title { font-family: 'Orbitron', sans-serif; font-weight: 800; font-size: 17px; color: #00F2FE; letter-spacing: 1px; line-height: 1.2; }
-        .nav-wrapper { position: relative; }
-        .nav-icon-btn { background: none; border: none; color: #FFD700; font-size: 22px; cursor: pointer; text-shadow: 0 0 10px #FFD700; padding: 5px; }
+        /* Nav Right Controls */
+        .nav-right-controls { display: flex; align-items: center; gap: 18px; }
+        .live-text-badge { color: #FF0055; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 4px; }
+        .live-dot { width: 6px; height: 6px; background-color: #FF0055; border-radius: 50%; }
+        .search-icon { font-size: 16px; color: #718096; cursor: pointer; }
 
-        /* DROPDOWN MENU STYLE (ADAPTASI SCREENSHOT_20260618_215629.JPG) */
+        /* TOMBOL MENU UTAMA (Kombinasi Titik Petir / Hamburger Menu) */
+        .nav-icon-btn { 
+            background: none; border: none; color: #1A2E69; 
+            font-size: 22px; cursor: pointer; padding: 5px; 
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        /* DROPDOWN MENU KOTAK PUTIH MELAYANG (PERSIS SCREENSHOT_20260618_215629_2.JPG) */
+        .nav-wrapper { position: relative; }
         .thunder-dropdown {
-            display: none;
+            display: none; /* Tersembunyi default, muncul via JS */
             position: absolute;
-            top: 45px; right: 0;
+            top: 40px; right: 0;
             background-color: #ffffff;
-            min-width: 180px;
+            min-width: 190px;
             border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 1px solid rgba(0,0,0,0.06);
             overflow: hidden;
-            z-index: 1000;
+            z-index: 9999;
         }
         .thunder-dropdown a {
             display: block;
-            padding: 12px 16px;
+            padding: 12px 20px;
             color: #4A5568;
             text-decoration: none;
-            font-size: 13.5px;
+            font-size: 14px;
             font-weight: 700;
-            border-bottom: 1px solid #EDF2F7;
+            border-bottom: 1px solid #F7FAFC;
             text-align: left;
+            transition: background 0.2s;
         }
         .thunder-dropdown a:last-child { border-bottom: none; }
         .thunder-dropdown a:active { background-color: #EDF2F7; }
 
-        /* LIVE PLAYER SCREEN & CONTAINER HALAMAN UTAMA */
+        /* LIVE PLAYER SCREEN / MAIN PANEL CONTAINER */
         .main-player-wrapper { padding: 15px; }
         .digital-screen {
-            position: relative; width: 100%; min-height: 200px; aspect-ratio: 16/9; background-color: #000;
-            border-radius: 14px; overflow: hidden; border: 1px solid #00F2FE;
-            box-shadow: 0 0 25px rgba(0, 242, 254, 0.2);
+            position: relative; width: 100%; aspect-ratio: 16/9; background-color: #000;
+            border-radius: 14px; overflow: hidden; border: 1px solid #1A2E69;
         }
         .screen-inside {
             width: 100%; height: 100%; display: flex; flex-direction: column;
@@ -102,266 +98,166 @@
         .trigger-play {
             width: 55px; height: 55px; background-color: #00F2FE; border-radius: 50%;
             display: flex; justify-content: center; align-items: center; color: #0A0E17;
-            font-size: 22px; font-weight: bold; margin-bottom: 12px; box-shadow: 0 0 18px #00F2FE;
-            cursor: pointer;
+            font-size: 22px; font-weight: bold; margin-bottom: 12px; cursor: pointer;
         }
 
-        /* PREMIUM DYNAMIC CONTACT VIEW (ADAPTASI SCREENSHOT_20260618_215736.JPG) */
+        /* HALAMAN KONTAK (TAMPILAN BERSIH CERAH SESUAI REKOMENDASI) */
         .contact-view {
             display: none;
-            width: 100%;
-            background: #FDF4F5; /* Background estetik cerah sesuai contoh */
-            color: #1A2E69;
-            padding: 30px 20px;
-            text-align: left;
+            width: 100%; background: #FDF4F5; color: #1A2E69;
+            padding: 30px 20px; text-align: left;
         }
         .contact-view h2 { font-size: 28px; font-weight: 800; color: #1A2E69; margin-bottom: 10px; }
-        .contact-view .sub-desc { font-size: 13px; color: #4A5568; margin-bottom: 25px; line-height: 1.5; }
+        .contact-view .sub-desc { font-size: 13px; color: #4A5568; margin-bottom: 25px; }
         
         .form-group { margin-bottom: 16px; }
         .form-input {
             width: 100%; padding: 14px 20px; border-radius: 30px; 
             border: 1px solid rgba(0,0,0,0.08); background-color: #ffffff;
             font-size: 14px; color: #1A2E69; outline: none;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         }
-        .form-input::placeholder { color: #A0AEC0; }
         
-        /* Captcha & Submit style */
+        /* Captcha & Submit */
         .captcha-box {
             background: #ffffff; border: 1px solid #D2D6DC; padding: 12px;
             border-radius: 6px; display: flex; align-items: center; justify-content: space-between;
             margin-bottom: 20px; max-width: 280px;
         }
         .captcha-left { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #000000; }
-        .captcha-checkbox { width: 20px; height: 20px; cursor: pointer; }
         .captcha-right { text-align: center; font-size: 9px; color: #718096; }
-        .captcha-right img { width: 26px; display: block; margin: 0 auto 2px auto; }
-        
         .submit-contact-btn {
             display: block; width: 140px; margin: 0 auto; background-color: #4F73C2;
             color: #ffffff; text-align: center; padding: 12px 0; border-radius: 25px;
-            font-weight: bold; border: none; font-size: 14px; cursor: pointer; box-shadow: 0 4px 10px rgba(79,115,194,0.3);
+            font-weight: bold; border: none; font-size: 14px; cursor: pointer;
         }
 
-        /* CORPORATE DATA INFO (ADAPTASI SCREENSHOT_20260618_215746.JPG) */
+        /* CORPORATE DATA INFO */
         .corporate-info-section { margin-top: 35px; padding-top: 25px; border-top: 1px dashed rgba(26, 46, 105, 0.2); }
         .corp-block { margin-bottom: 20px; }
         .corp-block h4 { font-size: 16px; font-weight: bold; color: #1A2E69; margin-bottom: 8px; }
         .corp-block p { font-size: 13px; color: #4A5568; line-height: 1.6; }
 
-        /* MODUL DONASI PREMIUM */
-        .donation-wrapper { padding: 0 15px 15px 15px; }
-        .donation-box {
-            background: linear-gradient(90deg, #1E1B4B, #0F172A); border: 1px dashed #4F46E5;
-            border-radius: 12px; padding: 12px 15px; display: flex; align-items: center; justify-content: space-between; gap: 10px;
-        }
-        .donation-text h6 { font-size: 12.5px; color: #F1F5F9; font-weight: 700; margin-bottom: 2px; }
-        .donation-text p { font-size: 10.5px; color: #94A3B8; }
-        .donation-btn {
-            background: linear-gradient(135deg, #25D366, #128C7E); color: #ffffff; text-decoration: none;
-            font-size: 11px; font-weight: bold; padding: 8px 14px; border-radius: 8px; font-family: 'Orbitron', sans-serif;
-            letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3); text-transform: uppercase; white-space: nowrap;
-        }
-
-        /* DIGITAL INTERACTIVE SCHEDULE */
+        /* JADWAL SIARAN */
         .broadcast-schedule { padding: 15px; }
-        .header-label { font-family: 'Orbitron', sans-serif; font-size: 13px; color: #64748B; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; }
+        .header-label { font-family: 'Orbitron', sans-serif; font-size: 13px; color: #64748B; text-transform: uppercase; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
         .header-label::before { content: ''; display: inline-block; width: 4px; height: 14px; background: #00F2FE; }
         .schedule-list { display: flex; flex-direction: column; gap: 10px; }
-        .schedule-row { background-color: #111827; border-radius: 10px; padding: 14px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #1E293B; border-left: 4px solid #334155; }
-        .schedule-row.active-now { background: linear-gradient(90deg, #16223F, #0F172A); border-color: #00F2FE; border-left: 4px solid #00F2FE; box-shadow: inset 0 0 15px rgba(0, 242, 254, 0.08); }
-        .program-detail h4 { font-size: 14px; color: #F8FAFC; margin-bottom: 4px; font-weight: 700; }
-        .program-detail p { font-size: 11.5px; color: #94A3B8; line-height: 1.4; }
+        .schedule-row { background-color: #111827; border-radius: 10px; padding: 14px; display: flex; justify-content: space-between; align-items: center; }
+        .schedule-row.active-now { border-left: 4px solid #00F2FE; background-color: #16223F; }
+        .program-detail h4 { font-size: 14px; color: #F8FAFC; }
+        .program-detail p { font-size: 11.5px; color: #94A3B8; }
         .clock-badge { font-family: 'Orbitron', sans-serif; font-size: 13px; color: #00F2FE; font-weight: bold; }
-        .now-badge { background-color: #FF0055; color: white; font-size: 8px; padding: 3px 6px; border-radius: 4px; font-weight: bold; text-transform: uppercase; margin-bottom: 4px; display: inline-block; letter-spacing: 0.5px; }
 
-        /* PORTAL BERITA TELEVISI */
-        .news-portal { padding: 15px; }
-        .news-stack { display: flex; flex-direction: column; gap: 12px; }
-        .portal-card { display: flex; gap: 15px; background-color: #1E293B; border-radius: 12px; overflow: hidden; border: 1px solid #334155; padding: 10px; }
-        .portal-thumb { width: 90px; height: 75px; background-color: #0F172A; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #475569; font-weight: bold; font-family: 'Orbitron', sans-serif; border: 1px solid #334155; }
-        .portal-info { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .portal-info h5 { font-size: 13px; color: #F1F5F9; line-height: 1.4; font-weight: 600; }
-        .portal-meta { font-size: 10px; color: #64748B; font-weight: bold; }
+        /* MASUKAN BANNER TIMUR */
+        .feedback-banner { background-color: #1A2E69; text-align: center; padding: 35px 24px; }
+        .feedback-banner h3 { font-size: 15px; color: #ffffff; font-weight: 600; margin-bottom: 22px; line-height: 1.6; }
+        .feedback-btn { display: inline-block; background-color: #ffffff; color: #1A2E69; text-decoration: none; font-weight: bold; font-size: 13.5px; padding: 10px 32px; border-radius: 25px; }
 
-        /* MODUL LAYANAN ADUAN PEMIRSA */
-        .feedback-banner { background-color: #1A2E69; text-align: center; padding: 35px 24px; border-top: 1px solid #1E293B; }
-        .feedback-banner h3 { font-size: 15px; color: #ffffff; font-weight: 600; line-height: 1.6; margin-bottom: 22px; max-width: 320px; margin-left: auto; margin-right: auto; }
-        .feedback-btn { display: inline-block; background-color: #ffffff; color: #1A2E69; text-decoration: none; font-weight: bold; font-size: 13.5px; padding: 10px 32px; border-radius: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-
-        /* DIREKTORI LINK BAWAH STASIUN */
-        .station-directory { background-color: #0A0E17; text-align: center; padding: 35px 20px 5px 20px; }
-        .directory-links { display: flex; flex-direction: column; gap: 16px; font-size: 14.5px; font-weight: bold; color: #94A3B8; margin-bottom: 30px; }
+        /* FOOTER DIRECTORY */
+        .station-directory { background-color: #0A0E17; text-align: center; padding: 35px 20px; }
+        .directory-links { display: flex; flex-direction: column; gap: 16px; font-size: 14.5px; font-weight: bold; color: #94A3B8; }
         .directory-links a { color: #94A3B8; text-decoration: none; cursor: pointer; }
-        .social-media-row { display: flex; justify-content: center; gap: 22px; font-size: 18px; color: #64748B; margin-bottom: 25px; border-bottom: 1px solid #1E293B; padding-bottom: 25px; }
 
-        /* FOOTER PROTEKSI HAK CIPTA */
-        footer { background-color: #070A10; color: #475569; padding: 0 20px 25px 20px; text-align: center; font-size: 11px; line-height: 1.6; letter-spacing: 0.5px; }
-        footer strong { color: #94A3B8; }
-
-        /* CONTROLLER FOOTER NAVIGATION */
-        .navigation-dock { position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background-color: #0A0E17; border-top: 1px solid #1E293B; display: flex; justify-content: space-around; align-items: center; z-index: 200; box-shadow: 0 -5px 20px rgba(0,0,0,0.5); }
-        .dock-item { display: flex; flex-direction: column; align-items: center; gap: 5px; color: #475569; font-size: 10px; text-decoration: none; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; }
-        .dock-item.selected { color: #00F2FE; text-shadow: 0 0 8px rgba(0, 242, 254, 0.4); }
-        .dock-icon { font-size: 18px; }
+        footer { background-color: #070A10; color: #475569; padding: 25px 20px; text-align: center; font-size: 11px; }
     </style>
 </head>
 <body>
 
     <!-- 1. LIVE MONITORING TICKER -->
     <div class="live-bar">
-        <div class="live-indicator">
-            <span class="live-flash"></span> ON AIR STREAMING
-        </div>
-        <div class="stream-title">PROGRAM: MEGA PRIME TIME BROADCAST</div>
+        <div class="live-indicator"><span class="live-flash"></span> STREAMING</div>
+        <div class="stream-title">ZETACREAT TV DIGITAL BROADCAST</div>
     </div>
 
-    <!-- 2. HEADER BRANDING & INTERACTIVE DROPDOWN -->
+    <!-- 2. STICKER HEADER DENGAN TOMBOL DROPDOWN ASLI (KANAN ATAS) -->
     <header>
         <div class="station-branding" onclick="showLiveVideo()">
             <div class="logo-container">
-                <img src="1781606509965.png" id="mainLogo" onerror="this.onerror=null; this.src='zetacreatrpg.jpg';">
+                <img src="1781606509965.png" onerror="this.onerror=null; this.src='zetacreatrpg.jpg';">
             </div>
             <div class="station-title">ZETACREAT TV</div>
         </div>
-        <div class="nav-wrapper">
-            <button class="nav-icon-btn" onclick="toggleDropdown(event)">⚡</button>
-            <!-- DROPDOWN COMPONENT -->
-            <div class="thunder-dropdown" id="thunderMenu">
-                <a href="#" onclick="showLiveVideo()">Program</a>
-                <a href="#" onclick="showLiveVideo()">Jadwal TV</a>
-                <a href="#" onclick="showLiveVideo()">Karir</a>
-                <a href="#" onclick="showContactPage(event)">Kontak Kami</a>
-                <a href="#" onclick="showLiveVideo()">Layanan Penyiaran</a>
+        
+        <div class="nav-right-controls">
+            <div class="live-text-badge"><span class="live-dot"></span>Live</div>
+            <div class="search-icon">🔍</div>
+            <!-- WRAPPER DROPDOWN INTERAKTIF -->
+            <div class="nav-wrapper">
+                <button class="nav-icon-btn" onclick="toggleDropdown(event)">☰</button>
+                
+                <!-- DROPDOWN BOX MELAYANG PERSIS SEPERTI DI SCREENSHOT -->
+                <div class="thunder-dropdown" id="thunderMenu">
+                    <a href="#" onclick="showLiveVideo()">Program</a>
+                    <a href="#" onclick="showLiveVideo()">Jadwal TV</a>
+                    <a href="#" onclick="showLiveVideo()">Karir</a>
+                    <a href="#" onclick="showContactPage(event)">Kontak Kami</a>
+                    <a href="#" onclick="showLiveVideo()">Layanan Penyiaran</a>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- CONTAINER PANEL YANG DAPAT BERUBAH SECARA DINAMIS -->
+    <!-- DYNAMIC CORE DISPLAY PANEL -->
     <div id="dynamicMainContainer">
-        <!-- SCREEN VIEW UTAMA (DEFAULT) -->
+        <!-- 1. PANEL UTAMA STREAMING -->
         <section class="main-player-wrapper" id="liveVideoPanel">
             <div class="digital-screen">
                 <div class="screen-inside">
                     <div class="trigger-play">▶</div>
-                    <span style="font-size: 13px; font-weight: 700; letter-spacing: 1px; color: #00F2FE;">KETUK UNTUK MEMUTAR SIARAN</span>
-                    <span style="font-size: 9.5px; color: #64748B; margin-top: 5px; text-transform: uppercase;">Zetacreat Digital Ultra HD Stream Feed</span>
+                    <span style="font-size: 13px; font-weight: 700; color: #00F2FE;">KETUK UNTUK MEMUTAR SIARAN</span>
                 </div>
             </div>
         </section>
 
-        <!-- CONTACT VIEW UTAMA (ADAPTASI DARI SCREENSHOT SCTV KONTAK KAMI) -->
+        <!-- 2. PANEL HALAMAN KONTAK (KETIKA DIKLIK) -->
         <section class="contact-view" id="contactUsPanel">
             <h2>Kontak Kami</h2>
             <p class="sub-desc">Feel free to contact us and we will get back to you as soon as we can.</p>
             
-            <form onsubmit="event.preventDefault(); alert('Pesan Anda berhasil terkirim ke Redaksi ZETACREAT TV!');">
-                <div class="form-group">
-                    <input type="text" class="form-input" placeholder="Nama*" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" class="form-input" placeholder="Email*" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-input" placeholder="Subject*" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-input" placeholder="Pesan*" required>
-                </div>
+            <form onsubmit="event.preventDefault(); alert('Pesan Anda berhasil dikirim ke ZETACREAT TV!');">
+                <div class="form-group"><input type="text" class="form-input" placeholder="Nama*" required></div>
+                <div class="form-group"><input type="email" class="form-input" placeholder="Email*" required></div>
+                <div class="form-group"><input type="text" class="form-input" placeholder="Subject*" required></div>
+                <div class="form-group"><input type="text" class="form-input" placeholder="Pesan*" required></div>
 
-                <!-- Google Recaptcha Mockup Component -->
                 <div class="captcha-box">
-                    <div class="captcha-left">
-                        <input type="checkbox" class="captcha-checkbox" required>
-                        <span>Saya bukan robot</span>
-                    </div>
-                    <div class="captcha-right">
-                        <span style="font-size: 20px; display: block; margin-bottom: -2px;">🔄</span>
-                        reCAPTCHA
-                    </div>
+                    <div class="captcha-left"><input type="checkbox" required> <span>Saya bukan robot</span></div>
+                    <div class="captcha-right">reCAPTCHA</div>
                 </div>
-
                 <button type="submit" class="submit-contact-btn">Kirim</button>
             </form>
 
-            <!-- CORPORATE DETAIL ADDRESS BLOCK -->
             <div class="corporate-info-section">
                 <div class="corp-block">
                     <h4>Alamat</h4>
-                    <p>
-                        ZETACREAT Tower - PT Arka Media Group<br>
-                        Sovereign Konglomerat Area, Gedung Keuangan Lt. 19,<br>
-                        Jl. Asia Afrika Lot 19, Gelora, Kecamatan Tanah Abang,<br>
-                        Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10270
-                    </p>
+                    <p>ZETACREAT Tower - PT Arka Media Group<br>Jl. Asia Afrika Lot 19, Gelora, Tanah Abang, Jakarta Pusat 10270</p>
                 </div>
                 <div class="corp-block">
                     <h4>Bantuan</h4>
-                    <p>
-                        Email: support@zetacreat.co.id<br>
-                        Phone: +62 21 2793 5555<br>
-                        Fax: +62 21 2793 5444
-                    </p>
+                    <p>Email: support@zetacreat.co.id<br>Phone: +62 21 2793 5555</p>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- 4. MODUL DONASI SEIKHLASNYA -->
-    <div class="donation-wrapper">
-        <div class="donation-box">
-            <div class="donation-text">
-                <h6>Donasi Seikhlasnya ZETACREAT TV</h6>
-                <p>Menerima dukungan penyiaran via DANA & GoPay ke nomor 08211553241</p>
-            </div>
-            <a href="https://wa.me/628211553241?text=Halo%20Admin%20ZETACREAT%20TV%2C%20saya%20mau%20donasi%20seikhlasnya%20ke%20nomor%20DANA%2FGoPay%20Bapak." target="_blank" class="donation-btn">💳 KIRIM</a>
-        </div>
-    </div>
-
-    <!-- 5. REALTIME DIGITAL SCHEDULE -->
+    <!-- JADWAL SIARAN -->
     <section class="broadcast-schedule">
         <div class="header-label">JADWAL SIARAN HARI INI</div>
         <div class="schedule-list">
             <div class="schedule-row active-now">
-                <div class="program-detail">
-                    <span class="now-badge">SEDANG TAYANG</span>
-                    <h4>Indie Wave Music Stage</h4>
-                    <p>Panggung Kreatif & Kompetisi Band Independen Nasional</p>
-                </div>
+                <div class="program-detail"><h4>Indie Wave Music Stage</h4><p>Panggung Musik Kreatif</p></div>
                 <div class="clock-badge">21:00</div>
             </div>
-            <div class="schedule-row">
-                <div class="program-detail">
-                    <h4>Sinema Kekinian: Batas Kreatif</h4>
-                    <p>Kurasi Sinematik Indie Karya Kreator Muda Nusantara</p>
-                </div>
-                <div class="clock-badge">22:30</div>
-            </div>
         </div>
     </section>
 
-    <!-- 6. PORTAL BERITA INTERNAL INTERGASI TELEVISI -->
-    <section class="news-portal">
-        <div class="header-label">BERITA & UPDATE STASIUN</div>
-        <div class="news-stack">
-            <div class="portal-card">
-                <div class="portal-thumb">Z-NEWS</div>
-                <div class="portal-info">
-                    <h5>Arka Media Group Siapkan Panggung Akbar Final Audisi Kreatif Bulan Depan</h5>
-                    <span class="portal-meta">UPDATE HARI INI</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 7. MODUL LAYANAN MASUKAN PEMIRSA -->
+    <!-- BANNER HUBUNGI KAMI DI TENGAH HALAMAN -->
     <section class="feedback-banner">
         <h3>Anda punya pertanyaan atau masukan terkait program kami? Kami siap melayani kebutuhan Anda</h3>
         <a href="#" onclick="showContactPage(event)" class="feedback-btn">Hubungi Kami</a>
     </section>
 
-    <!-- 8. DIREKTORI MENU UTAMA BAWAH -->
+    <!-- DIREKTORI LINK BAWAH -->
     <section class="station-directory">
         <div class="directory-links">
             <a onclick="showLiveVideo()">Program</a>
@@ -369,80 +265,42 @@
             <a onclick="showContactPage(event)">Kontak Kami</a>
             <a onclick="showLiveVideo()">Karir</a>
             <a onclick="showLiveVideo()">Layanan Multipleksing</a>
-            <a onclick="showLiveVideo()">Kualitas Gambar</a>
-            <a onclick="showLiveVideo()">Live Streaming</a>
-        </div>
-        <div class="social-media-row">
-            <span>🌐</span> <span>📸</span> <span>🐦</span> <span>📺</span> <span>🎵</span>
         </div>
     </section>
 
-    <!-- 9. FOOTER PROTEKSI LEGALITAS KORPORAT -->
     <footer>
         Hak Cipta Dilindungi Undang-Undang &copy; 2026<br>
-        <strong>PT ARKA MEDIA GROUP (ZETACREAT TV)</strong><br>
-        Sovereign Konglomerat Group Corporation. All Rights Reserved.
+        <strong>PT ARKA MEDIA GROUP (ZETACREAT TV)</strong>
     </footer>
 
-    <!-- 10. CONTROLLER FOOTER INTERACTIVE DOCK -->
-    <nav class="navigation-dock">
-        <a onclick="showLiveVideo()" class="dock-item selected" id="dockLive">
-            <span class="dock-icon">📺</span>
-            <span>Live Streaming</span>
-        </a>
-        <a onclick="showLiveVideo()" class="dock-item">
-            <span class="dock-icon">📅</span>
-            <span>Jadwal Acara</span>
-        </a>
-        <a onclick="showContactPage(event)" class="dock-item" id="dockContact">
-            <span class="dock-icon">📞</span>
-            <span>Kontak</span>
-        </a>
-    </nav>
-
-    <!-- INTERACTIVE SCRIPT CONTROLLER -->
+    <!-- INTERACTIVE JAVASCRIPT CONTROLLER -->
     <script>
-        // Fungsi untuk buka-tutup dropdown petir
+        // Fungsi klik buka tutup menu melayang tepat di bawah tombol pojok kanan atas
         function toggleDropdown(event) {
             event.stopPropagation();
-            const dropdown = document.getElementById('thunderMenu');
-            if (dropdown.style.display === 'block') {
-                dropdown.style.display = 'none';
-            } else {
-                dropdown.style.display = 'block';
-            }
+            const menu = document.getElementById('thunderMenu');
+            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
         }
 
-        // Menutup dropdown otomatis jika klik di area luar
+        // Otomatis tutup dropdown jika pengguna mengetuk area lain di layar
         window.onclick = function() {
             document.getElementById('thunderMenu').style.display = 'none';
         }
 
-        // Fungsi menampilkan halaman Kontak Kami
+        // Fungsi menampilkan panel Halaman Kontak Kami
         function showContactPage(event) {
             if(event) event.preventDefault();
             document.getElementById('liveVideoPanel').style.display = 'none';
             document.getElementById('contactUsPanel').style.display = 'block';
-            
-            // Ubah state navigasi dock bawah
-            document.getElementById('dockLive').classList.remove('selected');
-            document.getElementById('dockContact').classList.add('selected');
-            
-            // Scroll otomatis ke panel agar pemirsa langsung melihat form
             document.getElementById('dynamicMainContainer').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Fungsi menampilkan kembali layar Live Video
+        // Fungsi mengembalikan ke halaman streaming utama
         function showLiveVideo() {
             document.getElementById('contactUsPanel').style.display = 'none';
             document.getElementById('liveVideoPanel').style.display = 'block';
-            
-            document.getElementById('dockContact').classList.remove('selected');
-            document.getElementById('dockLive').classList.add('selected');
-            
             document.getElementById('dynamicMainContainer').scrollIntoView({ behavior: 'smooth' });
         }
     </script>
-
 </body>
 </html>
